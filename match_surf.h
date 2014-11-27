@@ -61,6 +61,8 @@ listDescriptor* getDescriptorFromRawFile(string nameFile)
                 kp->orientation=strtod(word.c_str(),NULL);
             else if(i==68)
                 kp->signLaplacian=strtod(word.c_str(),NULL);
+			else if(i==69)
+				kp->integral_ty=strtod(word.c_str(),NULL);
             else
             {
                 int j=(i-4)/4;

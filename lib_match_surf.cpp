@@ -16,6 +16,7 @@ std::vector<Match> matchDescriptor(listDescriptor * l1, listDescriptor * l2)
     // The match uses a ratio between a selected descriptor of l1 and the two closest descriptors
     // of l2.
     float thrm=RATE*RATE;
+	// RATE = 0.6
     
     std::vector<Match> matches;
     
@@ -50,8 +51,11 @@ std::vector<Match> matchDescriptor(listDescriptor * l1, listDescriptor * l2)
             match.y1=((*l1)[i]->kP)->y;
 			match.x2=((*l2)[position]->kP)->x;
 			match.y2=((*l2)[position]->kP)->y;
+			match.integral1=((*l1)[i]->kP)->integral_ty;
+			match.integral2=((*l2)[position]->kP)->integral_ty;
 			matches.push_back(match);
 		}
+
 	}
 	return matches;
 }

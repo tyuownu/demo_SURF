@@ -16,9 +16,12 @@ listDescriptor* getKeyPoints(image *img,listKeyPoints* lKP,float threshold)
     
 	// Compute the integral image
     imageIntegral* imgInt=new imageIntegral(img);
+	// integral image: width  = width  + 2*padding
+	// 				   height = height + 2*padding
 
     // Array of each Hessians and of each sign of the Laplacian
     image*  hessian[INTERVAL];
+	//define INTERVAL 4
     image* signLaplacian[INTERVAL];
 
 	// Auxiliary variables
@@ -32,8 +35,12 @@ listDescriptor* getKeyPoints(image *img,listKeyPoints* lKP,float threshold)
         pow2=pow(2,octaveCounter+1);
         
         sample=pow(SAMPLE_IMAGE,octaveCounter);// Sampling step
+		//define SAMPLE_IMAGE 2
 
         img->getSampledImage(w,h,sample);// Build a sampled images filled in with 0
+		if(octaveCounter == 0)
+			std::cout<<"original image: "<<img->getWidth()<<" , "<<img->getHeight()<<std::endl;
+		std::cout<<"octaveCounter = "<<octaveCounter<<": "<<w<<"  "<<h<<std::endl;
       
         // Memory initialization
         for(int i=0;i<INTERVAL;i++)
@@ -81,7 +88,7 @@ listDescriptor* getKeyPoints(image *img,listKeyPoints* lKP,float threshold)
                     Dxy/=nxy;
                     
                     // Computation of the Hessian and Laplacian
-                    (*hessian[intervalCounter])(x,y)= (Dxx*Dyy-0.81*(Dxy*Dxy));
+                    (*hessian[intervalCounter])(x,y)= -(Dxx*Dyy-0.81*(Dxy*Dxy));
                     (*signLaplacian[intervalCounter])(x,y)=Dxx+Dyy>0;
 				}
 			}
@@ -90,7 +97,7 @@ listDescriptor* getKeyPoints(image *img,listKeyPoints* lKP,float threshold)
 
 		}
         
-        REGULAR_IMAGE x_,y_,s_;
+        REGULAR_IMAGE x_,y_,s_,integral_ty_;
         
 		// Detect keypoints
         for(intervalCounter=1;intervalCounter<INTERVAL-1;intervalCounter++)
@@ -105,8 +112,8 @@ listDescriptor* getKeyPoints(image *img,listKeyPoints* lKP,float threshold)
                             y_=y*sample;
                             s_=0.4*(pow2*(intervalCounter+1)+2); // box size or scale
                             // Affine refinement is performed for a given octave and sampling
-                            if( interpolationScaleSpace(hessian, x, y, intervalCounter, x_, y_, s_, sample,pow2) )
-                                addKeyPoint(imgInt, x_, y_, (*(signLaplacian[intervalCounter]))(x,y),s_, lKP);
+                            if( interpolationScaleSpace(hessian, x, y, intervalCounter, x_, y_, s_, sample,pow2,integral_ty_) )
+                                addKeyPoint(imgInt, x_, y_, (*(signLaplacian[intervalCounter]))(x,y),s_, lKP,integral_ty_);
                         }
 		}
         
@@ -125,9 +132,12 @@ listDescriptor* getKeyPoints(image *img,listKeyPoints* lKP,float threshold)
 
 
 // Create a keypoint and add it to the list of keypoints
-void addKeyPoint(imageIntegral* img,REGULAR_IMAGE i,REGULAR_IMAGE j,bool signL,REGULAR_IMAGE scale,listKeyPoints* lKP)
+void addKeyPoint(imageIntegral* img,REGULAR_IMAGE i,REGULAR_IMAGE j,bool signL,REGULAR_IMAGE scale,listKeyPoints* lKP,REGULAR_IMAGE integral_ty_)
 {
-		keyPoint* pt=new keyPoint(i,j,scale,getOrientation(img,  i,j,NUMBER_SECTOR,scale),signL);
+		keyPoint* pt=new keyPoint(i,j,scale,getOrientation(img,  i,j,NUMBER_SECTOR,scale),signL,integral_ty_);
+		if(integral_ty_ < 100)
+			std::cout<<"addKeypoint is wrong!--->"<<integral_ty_<<std::endl;
+		// define NUMBER_SECTOR 20
 		lKP->push_back(pt);
 }
 
@@ -143,7 +153,7 @@ float getOrientation(imageIntegral* imgInt,int x,int y,int sectors,REGULAR_IMAGE
     REGULAR_IMAGE gauss;
 	
     int theta;
-    
+   //memset set memory zeros. 
     memset(haarResponseSectorX,0,sizeof(REGULAR_IMAGE)*sectors);
     memset(haarResponseSectorY,0,sizeof(REGULAR_IMAGE)*sectors);
     memset(haarResponseX,0,sizeof(REGULAR_IMAGE)*sectors);
@@ -212,7 +222,7 @@ float getOrientation(imageIntegral* imgInt,int x,int y,int sectors,REGULAR_IMAGE
 
 
 // Scale space interpolation as described in Lowe
-bool interpolationScaleSpace(image** img,int x, int y, int i, REGULAR_IMAGE &x_, REGULAR_IMAGE &y_, REGULAR_IMAGE &s_, int sample, int octaveValue)
+bool interpolationScaleSpace(image** img,int x, int y, int i, REGULAR_IMAGE &x_, REGULAR_IMAGE &y_, REGULAR_IMAGE &s_, int sample, int octaveValue,REGULAR_IMAGE &integral_ty_)
 {
 	//If we are outside the image...
 	if(x<=0 || y<=0 || x>=img[i]->getWidth()-2 || y>=img[i]->getHeight()-2)
@@ -226,6 +236,7 @@ bool interpolationScaleSpace(image** img,int x, int y, int i, REGULAR_IMAGE &x_,
 	
     //Hessian X
 	REGULAR_IMAGE a=(*(img[i]))(x,y);
+	integral_ty_ = a;
 	dxx=(*(img[i]))(x+1,y)+(*(img[i]))(x-1,y)-2*a;
 	dyy=(*(img[i]))(x,y+1)+(*(img[i]))(x,y+1)-2*a;
 	dii=((*(img[i-1]))(x,y)+(*(img[i+1]))(x,y)-2*a);

@@ -8,7 +8,7 @@
 
 
 #include "image.h"
-
+#include <iostream>
 
 
 // Constructors
@@ -48,6 +48,7 @@ void image::printImagePara(  char fileName[],image* para)
 	for(int i=0;i<width*height;i++)
 	{
 		if(min>img[i]) min=img[i];
+
         if(max<img[i]) max=img[i];
 	}
 	
@@ -104,6 +105,9 @@ imageIntegral::imageIntegral(image* img_input)
     padding=312;// size descriptor * max size L = 4*0.4*195;
     width=img_input->getWidth()+2*padding;
     height=img_input->getHeight()+2*padding;
+	std::cout<<"imageIntegral"<<std::endl;
+	std::cout<<"      width: "<<width<<std::endl;
+	std::cout<<"     height: "<<height<<std::endl;
     
     image* img_padded=img_input->padImage(padding); // Pad the image
     

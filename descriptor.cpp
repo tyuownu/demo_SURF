@@ -37,6 +37,7 @@ descriptor* makeDescriptor(imageIntegral* imgInt,keyPoint* pC)
 	REGULAR_IMAGE norm=0,u,v,gauss,responseU,responseV,responseX,responseY;
 	
 	// Divide in 16 sectors the space around the interest point.
+	// define DESCRIPTOR_SIZE_1D 4
 	for(int i=0;i<DESCRIPTOR_SIZE_1D;i++)
 	{
 	   for(int j=0;j<DESCRIPTOR_SIZE_1D;j++)
@@ -84,13 +85,13 @@ descriptor* makeDescriptor(imageIntegral* imgInt,keyPoint* pC)
     // and whitening the descriptors.
 	norm=sqrtf(norm);
 	if(norm!=0)
-	for(int i=0;i<DESCRIPTOR_SIZE_1D*DESCRIPTOR_SIZE_1D;i++)
-	{
-		(desc->list[i]).sumDx/=norm;
-		(desc->list[i]).sumAbsDx/=norm;
-		(desc->list[i]).sumDy/=norm;
-		(desc->list[i]).sumAbsDy/=norm;	
-	}
+		for(int i=0;i<DESCRIPTOR_SIZE_1D*DESCRIPTOR_SIZE_1D;i++)
+		{
+			(desc->list[i]).sumDx/=norm;
+			(desc->list[i]).sumAbsDx/=norm;
+			(desc->list[i]).sumDy/=norm;
+			(desc->list[i]).sumAbsDy/=norm;
+		}
 	desc->kP=new keyPoint(*pC);
 	return desc;
 }

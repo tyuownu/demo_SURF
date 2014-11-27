@@ -25,9 +25,10 @@
 class keyPoint {
 public:
 	double x,y,scale,orientation;
+	REGULAR_IMAGE integral_ty;
 	bool signLaplacian;
     // Constructor
-	keyPoint(REGULAR_IMAGE x_, REGULAR_IMAGE y_, REGULAR_IMAGE scale_,REGULAR_IMAGE orientation_, bool signLaplacian_):x(x_),y(y_),scale(scale_),orientation(orientation_),signLaplacian(signLaplacian_){}
+	keyPoint(REGULAR_IMAGE x_, REGULAR_IMAGE y_, REGULAR_IMAGE scale_,REGULAR_IMAGE orientation_, bool signLaplacian_,REGULAR_IMAGE integral_ty_):x(x_),y(y_),scale(scale_),orientation(orientation_),signLaplacian(signLaplacian_),integral_ty(integral_ty_){}
     keyPoint(){}
 };
 
@@ -39,14 +40,14 @@ typedef  std::vector<keyPoint*> listKeyPoints;
 
 // Create a keypoint
 // (i,j) are the coordinates of the keypoint, signLapl is the sign of the Laplacian, scale the box-size.
-void addKeyPoint(imageIntegral* img,REGULAR_IMAGE i,REGULAR_IMAGE j,bool signLapl,REGULAR_IMAGE scale,listKeyPoints* listKeyPoints);
+void addKeyPoint(imageIntegral* img,REGULAR_IMAGE i,REGULAR_IMAGE j,bool signLapl,REGULAR_IMAGE scale,listKeyPoints* listKeyPoints,REGULAR_IMAGE integral_ty_);
 							 
 // Compute the orientation of a keypoint
 float getOrientation(imageIntegral* imgInt,int x,int y,int numberSector,REGULAR_IMAGE scale);
 
 // Reject or interpolate the coordinate of a keypoint. This is necessary since there
 // was a subsampling of the image.
-bool interpolationScaleSpace(image** img,int x, int y, int i, REGULAR_IMAGE &x_, REGULAR_IMAGE &y_, REGULAR_IMAGE &s_, int sample, int octaveValue);
+bool interpolationScaleSpace(image** img,int x, int y, int i, REGULAR_IMAGE &x_, REGULAR_IMAGE &y_, REGULAR_IMAGE &s_, int sample, int octaveValue,REGULAR_IMAGE &integral_ty_);
 
 
 // Check if a point is a local maximum or not, and more than a given threshold.

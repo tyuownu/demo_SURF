@@ -24,7 +24,8 @@ int main(int argc, char** argv)
     // Threshold on the Hessian
     float threshold=1000;
     if(argc==4)
-        threshold=atoi(argv[4]);; // You can modify the threshold for the detection of the Hessian
+        threshold=atoi(argv[3]); // You can modify the threshold for the detection of the Hessian
+                                  // atoi: ASCII to intege
     if(argc>4)
     {
         cerr<<"Error: too many arguments"<<endl;
@@ -49,7 +50,9 @@ int main(int argc, char** argv)
     
 	// The list of key points.
 	listKeyPoints* l=new listKeyPoints();
+	//typedef std::vector<keyPoint*> listKeyPoints 
 	listDescriptor* listDesc;
+	//typedef  std::vector<descriptor*> listDescriptor;
     
 	// Keypoints detection and description
     listDesc=getKeyPoints(img,l,threshold);
@@ -72,6 +75,9 @@ int main(int argc, char** argv)
             for(int j=0;j<16;j++)
 				f<<(((*listDesc)[i]->list)[j]).sumDx<<" "<<(((*listDesc)[i]->list)[j]).sumDy<<" "<<(((*listDesc)[i]->list)[j]).sumAbsDx<<" "<<(((*listDesc)[i]->list)[j]).sumAbsDy<<" ";
 			f<<((((*listDesc)[i]->kP)->signLaplacian)?1:-1);
+			if(((*listDesc)[i]->kP)->integral_ty<threshold)
+				std::cout<<"why??--->"<<((*listDesc)[i]->kP)->integral_ty<<std::endl;
+			f<<" "<<((*listDesc)[i]->kP)->integral_ty;
             f<<"\n";
 		}
 		f.close();
