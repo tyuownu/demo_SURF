@@ -38,9 +38,11 @@ int main(int argc, char** argv)
 	std::cout<<"list descriptor 2: "<<listDesc2->size()<<std::endl;
     
     // Matching
-    std::vector<Match> match_coor=matchDescriptor(listDesc1,listDesc2);
+	std::vector<MatchWithHessian> match_with_hessian;
+	std::vector<MatchWithHessian> *p = &match_with_hessian;
+    std::vector<Match> match_coor=matchDescriptor(listDesc1,listDesc2,p);
 	std::cout<<"match RAW: "<<match_coor.size()<<std::endl;
-	saveMatch(outputmatch.c_str(),match_coor);
+	saveMatchWithHessian(outputmatch.c_str(),match_with_hessian);
     // Cleaning identical matches
     cleanMatch(&match_coor);
 	std::cout<<"match RAW2: "<<match_coor.size()<<std::endl;

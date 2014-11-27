@@ -11,6 +11,12 @@ struct Match {
     float x1, y1, x2, y2;
 };
 
+struct MatchWithHessian{
+	float x1,y1,x2,y2;
+	double hessian1,hessian2;
+};
+
+bool saveMatchWithHessian(const char* nameFile, const std::vector<MatchWithHessian> match_with_hessian);
 bool loadMatch(const char* nameFile, std::vector<Match>& match);
 bool saveMatch(const char* nameFile, const std::vector<Match>& match);
 

@@ -33,3 +33,18 @@ bool saveMatch(const char* nameFile, const std::vector<Match>& match) {
     }
     return f.is_open();
 }
+
+
+bool saveMatchWithHessian(const char* nameFile, const std::vector<MatchWithHessian> match) {
+    std::ofstream f(nameFile);
+    if( f.is_open() ) {
+        std::vector<MatchWithHessian>::const_iterator it = match.begin();
+        for(; it != match.end(); ++it)
+		{
+			f << it->x1 << " " << it->y1 << " "
+				<< it->x2 << " " << it->y2 
+				<< it->hessian1 <<" "<<it->hessian2<< std::endl;
+		}
+    }
+    return f.is_open();
+}

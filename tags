@@ -3500,12 +3500,17 @@ MappedSparseMatrix::~MappedSparseMatrix	third_party/Eigen/src/Sparse/MappedSpars
 MaskAlignedBit	third_party/Eigen/src/Core/Block.h	/^    MaskAlignedBit = (InnerPanel && (OuterStrideAtCompileTime!=Dynamic) && ((OuterStrideAtCompileTime % packet_traits<Scalar>::size) == 0)) ? AlignedBit : 0,$/;"	e	enum:internal::traits::__anon22
 MaskPacketAccessBit	third_party/Eigen/src/Core/Block.h	/^    MaskPacketAccessBit = (InnerSize == Dynamic || (InnerSize % packet_traits<Scalar>::size) == 0)$/;"	e	enum:internal::traits::__anon22
 Match	libMatch/match.h	/^struct Match {$/;"	s
-Match::integral1	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
-Match::integral2	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
-Match::x1	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
-Match::x2	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
-Match::y1	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
-Match::y2	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
+Match::x1	libMatch/match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+Match::x2	libMatch/match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+Match::y1	libMatch/match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+Match::y2	libMatch/match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+MatchWithHessian	libMatch/match.h	/^struct MatchWithHessian{$/;"	s
+MatchWithHessian::hessian1	libMatch/match.h	/^	double hessian1,hessian2;$/;"	m	struct:MatchWithHessian	access:public
+MatchWithHessian::hessian2	libMatch/match.h	/^	double hessian1,hessian2;$/;"	m	struct:MatchWithHessian	access:public
+MatchWithHessian::x1	libMatch/match.h	/^	float x1,y1,x2,y2;$/;"	m	struct:MatchWithHessian	access:public
+MatchWithHessian::x2	libMatch/match.h	/^	float x1,y1,x2,y2;$/;"	m	struct:MatchWithHessian	access:public
+MatchWithHessian::y1	libMatch/match.h	/^	float x1,y1,x2,y2;$/;"	m	struct:MatchWithHessian	access:public
+MatchWithHessian::y2	libMatch/match.h	/^	float x1,y1,x2,y2;$/;"	m	struct:MatchWithHessian	access:public
 Matrix	third_party/Eigen/src/Core/Map.h	/^  ::Matrix(const Scalar *data)$/;"	f	class:Matrix	signature:(const Scalar *data)
 Matrix	third_party/Eigen/src/Core/Matrix.h	/^    EIGEN_STRONG_INLINE Matrix(const EigenBase<OtherDerived> &other)$/;"	f	class:Matrix	access:public	signature:(const EigenBase<OtherDerived> &other)
 Matrix	third_party/Eigen/src/Core/Matrix.h	/^    EIGEN_STRONG_INLINE Matrix(const Matrix& other)$/;"	f	class:Matrix	access:public	signature:(const Matrix& other)
@@ -7145,7 +7150,6 @@ acos	third_party/Eigen/src/plugins/ArrayCwiseUnaryOps.h	/^acos() const$/;"	f	sig
 add	libNumerics/computeH.cpp	/^void ComputeH::add(float x, float y, float X, float Y, float w)$/;"	f	class:libNumerics::ComputeH	signature:(float x, float y, float X, float Y, float w)
 add	libNumerics/computeH.cpp	/^void ComputeH::add(float x, float y, float z, float X, float Y, float Z,$/;"	f	class:libNumerics::ComputeH	signature:(float x, float y, float z, float X, float Y, float Z, float w)
 addKeyPoint	keypoint.cpp	/^void addKeyPoint(imageIntegral* img,REGULAR_IMAGE i,REGULAR_IMAGE j,bool signL,REGULAR_IMAGE scale,listKeyPoints* lKP,REGULAR_IMAGE integral_ty_)$/;"	f	signature:(imageIntegral* img,REGULAR_IMAGE i,REGULAR_IMAGE j,bool signL,REGULAR_IMAGE scale,listKeyPoints* lKP,REGULAR_IMAGE integral_ty_)
-addKeyPoint	keypoint1.cpp	/^void addKeyPoint(imageIntegral* img,REGULAR_IMAGE i,REGULAR_IMAGE j,bool signL,REGULAR_IMAGE scale,listKeyPoints* lKP,REGULAR_IMAGE integral_ty_)$/;"	f	signature:(imageIntegral* img,REGULAR_IMAGE i,REGULAR_IMAGE j,bool signL,REGULAR_IMAGE scale,listKeyPoints* lKP,REGULAR_IMAGE integral_ty_)
 addTo	third_party/Eigen/src/Core/DiagonalMatrix.h	/^    void addTo(MatrixBase<DenseDerived> &other) const$/;"	f	class:DiagonalBase	access:public	signature:(MatrixBase<DenseDerived> &other) const
 addTo	third_party/Eigen/src/Core/EigenBase.h	/^  template<typename Dest> inline void addTo(Dest& dst) const$/;"	f	struct:EigenBase	access:public	signature:(Dest& dst) const
 addTo	third_party/Eigen/src/Core/ProductBase.h	/^    inline void addTo(Dest& dst) const { scaleAndAddTo(dst,1); }$/;"	f	class:ProductBase	access:public	signature:(Dest& dst) const
@@ -8388,13 +8392,11 @@ getDescriptor	descriptor.cpp	/^listDescriptor* getDescriptor(imageIntegral* imgI
 getDescriptorFromRawFile	match_surf.h	/^listDescriptor* getDescriptorFromRawFile(string nameFile)$/;"	f	signature:(string nameFile)
 getHeight	image.h	/^	inline int getHeight() {return height;}$/;"	f	class:image	access:public	signature:()
 getKeyPoints	keypoint.cpp	/^listDescriptor* getKeyPoints(image *img,listKeyPoints* lKP,float threshold)$/;"	f	signature:(image *img,listKeyPoints* lKP,float threshold)
-getKeyPoints	keypoint1.cpp	/^listDescriptor* getKeyPoints(image *img,listKeyPoints* lKP,float threshold)$/;"	f	signature:(image *img,listKeyPoints* lKP,float threshold)
 getL	third_party/Eigen/src/Cholesky/LDLT.h	/^  inline static MatrixL getL(const MatrixType& m) { return m.adjoint(); }$/;"	f	struct:internal::LDLT_Traits	access:public	signature:(const MatrixType& m)
 getL	third_party/Eigen/src/Cholesky/LDLT.h	/^  inline static MatrixL getL(const MatrixType& m) { return m; }$/;"	f	struct:internal::LDLT_Traits	access:public	signature:(const MatrixType& m)
 getL	third_party/Eigen/src/Cholesky/LLT.h	/^  inline static MatrixL getL(const MatrixType& m) { return m.adjoint(); }$/;"	f	struct:internal::LLT_Traits	access:public	signature:(const MatrixType& m)
 getL	third_party/Eigen/src/Cholesky/LLT.h	/^  inline static MatrixL getL(const MatrixType& m) { return m; }$/;"	f	struct:internal::LLT_Traits	access:public	signature:(const MatrixType& m)
 getOrientation	keypoint.cpp	/^float getOrientation(imageIntegral* imgInt,int x,int y,int sectors,REGULAR_IMAGE scale)$/;"	f	signature:(imageIntegral* imgInt,int x,int y,int sectors,REGULAR_IMAGE scale)
-getOrientation	keypoint1.cpp	/^float getOrientation(imageIntegral* imgInt,int x,int y,int sectors,REGULAR_IMAGE scale)$/;"	f	signature:(imageIntegral* imgInt,int x,int y,int sectors,REGULAR_IMAGE scale)
 getPlane	third_party/flimage.h	/^	float* getPlane() {return p;}	\/\/ return the adress of the array of values $/;"	f	class:flimage	access:public	signature:()
 getSampledImage	image.cpp	/^void image::getSampledImage(int& x,int& y,int sample)$/;"	f	class:image	signature:(int& x,int& y,int sample)
 getU	third_party/Eigen/src/Cholesky/LDLT.h	/^  inline static MatrixU getU(const MatrixType& m) { return m.adjoint(); }$/;"	f	struct:internal::LDLT_Traits	access:public	signature:(const MatrixType& m)
@@ -8427,6 +8429,8 @@ head	third_party/Eigen/src/Core/VectorBlock.h	/^DenseBase<Derived>::head(Index s
 height	image.h	/^	int	width,height; \/\/ size of the images$/;"	m	class:image	access:private
 height	image.h	/^    int	width,height;	\/\/ integral image real size$/;"	m	class:imageIntegral	access:private
 height	third_party/flimage.h	/^	int	width, height;	\/\/ image size$/;"	m	class:flimage	access:private
+hessian1	libMatch/match.h	/^	double hessian1,hessian2;$/;"	m	struct:MatchWithHessian	access:public
+hessian2	libMatch/match.h	/^	double hessian1,hessian2;$/;"	m	struct:MatchWithHessian	access:public
 histo	third_party/library.h	/^float * histo(float* input, float *iminim, float *imaxim, int *n, float *s, int size, char flag)$/;"	f	signature:(float* input, float *iminim, float *imaxim, int *n, float *s, int size, char flag)
 hnormalized	third_party/Eigen/src/Geometry/Homogeneous.h	/^MatrixBase<Derived>::hnormalized() const$/;"	f	class:MatrixBase	signature:() const
 hnormalized	third_party/Eigen/src/Geometry/Homogeneous.h	/^VectorwiseOp<ExpressionType,Direction>::hnormalized() const$/;"	f	class:VectorwiseOp	signature:() const
@@ -8610,8 +8614,6 @@ insertBackByOuterInner	third_party/Eigen/src/Sparse/DynamicSparseMatrix.h	/^    
 insertBackByOuterInner	third_party/Eigen/src/Sparse/SparseMatrix.h	/^    inline Scalar& insertBackByOuterInner(Index outer, Index inner)$/;"	f	class:SparseMatrix	access:public	signature:(Index outer, Index inner)
 insertBackByOuterInner	third_party/Eigen/src/Sparse/SparseVector.h	/^    inline Scalar& insertBackByOuterInner(Index outer, Index inner)$/;"	f	class:SparseVector	access:public	signature:(Index outer, Index inner)
 insertBackByOuterInnerUnordered	third_party/Eigen/src/Sparse/SparseMatrix.h	/^    inline Scalar& insertBackByOuterInnerUnordered(Index outer, Index inner)$/;"	f	class:SparseMatrix	access:public	signature:(Index outer, Index inner)
-integral1	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
-integral2	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
 integral_ty	keypoint.h	/^	REGULAR_IMAGE integral_ty;$/;"	m	class:keyPoint	access:public
 internal	third_party/Eigen/src/Cholesky/LDLT.h	/^namespace internal {$/;"	n
 internal	third_party/Eigen/src/Cholesky/LLT.h	/^namespace internal {$/;"	n
@@ -12022,7 +12024,6 @@ internal::vld1q_f32	third_party/Eigen/src/Core/arch/NEON/PacketMath.h	/^EIGEN_ST
 internal::vst1_f32	third_party/Eigen/src/Core/arch/NEON/PacketMath.h	/^EIGEN_STRONG_INLINE void        vst1_f32 (float* to, float32x2_t from) { ::vst1_f32 ((float32_t*)to,from); }$/;"	f	namespace:internal	signature:(float* to, float32x2_t from)
 internal::vst1q_f32	third_party/Eigen/src/Core/arch/NEON/PacketMath.h	/^EIGEN_STRONG_INLINE void        vst1q_f32(float* to, float32x4_t from) { ::vst1q_f32((float32_t*)to,from); }$/;"	f	namespace:internal	signature:(float* to, float32x4_t from)
 interpolationScaleSpace	keypoint.cpp	/^bool interpolationScaleSpace(image** img,int x, int y, int i, REGULAR_IMAGE &x_, REGULAR_IMAGE &y_, REGULAR_IMAGE &s_, int sample, int octaveValue,REGULAR_IMAGE &integral_ty_)$/;"	f	signature:(image** img,int x, int y, int i, REGULAR_IMAGE &x_, REGULAR_IMAGE &y_, REGULAR_IMAGE &s_, int sample, int octaveValue,REGULAR_IMAGE &integral_ty_)
-interpolationScaleSpace	keypoint1.cpp	/^bool interpolationScaleSpace(image** img,int x, int y, int i, REGULAR_IMAGE &x_, REGULAR_IMAGE &y_, REGULAR_IMAGE &s_, int sample, int octaveValue,REGULAR_IMAGE &integral_ty_)$/;"	f	signature:(image** img,int x, int y, int i, REGULAR_IMAGE &x_, REGULAR_IMAGE &y_, REGULAR_IMAGE &s_, int sample, int octaveValue,REGULAR_IMAGE &integral_ty_)
 intersection	third_party/Eigen/src/Eigen2Support/Geometry/Hyperplane.h	/^  VectorType intersection(const Hyperplane& other)$/;"	f	class:Hyperplane	access:public	signature:(const Hyperplane& other)
 intersection	third_party/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h	/^inline _Scalar ParametrizedLine<_Scalar, _AmbientDim>::intersection(const Hyperplane<_Scalar, _AmbientDim>& hyperplane)$/;"	f	class:ParametrizedLine	signature:(const Hyperplane<_Scalar, _AmbientDim>& hyperplane)
 intersection	third_party/Eigen/src/Geometry/AlignedBox.h	/^  inline AlignedBox intersection(const AlignedBox& b) const$/;"	f	class:AlignedBox	access:public	signature:(const AlignedBox& b) const
@@ -12866,7 +12867,7 @@ mat	libNumerics/homography.h	/^    const matrix<double>& mat() const { return m_
 mat	libNumerics/homography.h	/^    matrix<double>& mat() { return m_H; }$/;"	f	class:libNumerics::Homography	access:public	signature:()
 matPrefix	third_party/Eigen/src/Core/IO.h	/^  std::string matPrefix, matSuffix;$/;"	m	struct:IOFormat	access:public
 matSuffix	third_party/Eigen/src/Core/IO.h	/^  std::string matPrefix, matSuffix;$/;"	m	struct:IOFormat	access:public
-matchDescriptor	lib_match_surf.cpp	/^std::vector<Match> matchDescriptor(listDescriptor * l1, listDescriptor * l2)$/;"	f	signature:(listDescriptor * l1, listDescriptor * l2)
+matchDescriptor	lib_match_surf.cpp	/^std::vector<Match> matchDescriptor(listDescriptor * l1, listDescriptor * l2, std::vector<MatchWithHessian>* matcheswithhessian)$/;"	f	signature:(listDescriptor * l1, listDescriptor * l2, std::vector<MatchWithHessian>* matcheswithhessian)
 matcherrorn	orsa.cpp	/^void matcherrorn(float **F, const std::vector<float>& p1, const std::vector<float>& p2, float *e)$/;"	f	signature:(float **F, const std::vector<float>& p1, const std::vector<float>& p2, float *e)
 matrix	libNumerics/matrix.cpp	/^matrix<T>::matrix(const matrix<T>& m)$/;"	f	class:libNumerics::matrix	signature:(const matrix<T>& m)
 matrix	libNumerics/matrix.cpp	/^matrix<T>::matrix(int m, int n)$/;"	f	class:libNumerics::matrix	signature:(int m, int n)
@@ -14701,6 +14702,7 @@ sample	third_party/Eigen/src/Geometry/AlignedBox.h	/^  inline VectorType sample(
 sample	third_party/library.h	/^void sample(float *igray,float *ogray, float factor, int width, int height)$/;"	f	signature:(float *igray,float *ogray, float factor, int width, int height)
 sample_aglomeration	third_party/library.h	/^void sample_aglomeration(float *igray,float *ogray, float factor, int width, int height)$/;"	f	signature:(float *igray,float *ogray, float factor, int width, int height)
 saveMatch	libMatch/match.cpp	/^bool saveMatch(const char* nameFile, const std::vector<Match>& match) {$/;"	f	signature:(const char* nameFile, const std::vector<Match>& match)
+saveMatchWithHessian	libMatch/match.cpp	/^bool saveMatchWithHessian(const char* nameFile, const std::vector<MatchWithHessian> match) {$/;"	f	signature:(const char* nameFile, const std::vector<MatchWithHessian> match)
 scalar_abs2_op	third_party/Eigen/src/Core/Functors.h	/^template<typename Scalar> struct scalar_abs2_op {$/;"	s	namespace:internal
 scalar_abs_op	third_party/Eigen/src/Core/Functors.h	/^template<typename Scalar> struct scalar_abs_op {$/;"	s	namespace:internal
 scalar_acos_op	third_party/Eigen/src/Core/Functors.h	/^template<typename Scalar> struct scalar_acos_op {$/;"	s	namespace:internal
@@ -15634,8 +15636,10 @@ x	third_party/Eigen/src/Geometry/Quaternion.h	/^  inline Scalar x() const { retu
 x	third_party/Eigen/src/Geometry/Quaternion.h	/^  inline Scalar& x() { return this->derived().coeffs().coeffRef(0); }$/;"	f	class:QuaternionBase	access:public	signature:()
 x	third_party/Eigen/src/Geometry/Translation.h	/^  inline Scalar x() const { return m_coeffs.x(); }$/;"	f	class:Translation	access:public	signature:() const
 x	third_party/Eigen/src/Geometry/Translation.h	/^  inline Scalar& x() { return m_coeffs.x(); }$/;"	f	class:Translation	access:public	signature:()
-x1	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
-x2	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
+x1	libMatch/match.h	/^	float x1,y1,x2,y2;$/;"	m	struct:MatchWithHessian	access:public
+x1	libMatch/match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+x2	libMatch/match.h	/^	float x1,y1,x2,y2;$/;"	m	struct:MatchWithHessian	access:public
+x2	libMatch/match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
 y	keypoint.h	/^	double x,y,scale,orientation;$/;"	m	class:keyPoint	access:public
 y	libNumerics/homography.h	/^    class Normalization { public: double x, y, s; };$/;"	m	class:libNumerics::ComputeH::Normalization	access:public
 y	third_party/Eigen/src/Core/DenseCoeffsBase.h	/^    y() const { return (*this)[1]; }$/;"	f	class:DenseCoeffsBase	access:public	signature:() const
@@ -15646,8 +15650,10 @@ y	third_party/Eigen/src/Geometry/Quaternion.h	/^  inline Scalar y() const { retu
 y	third_party/Eigen/src/Geometry/Quaternion.h	/^  inline Scalar& y() { return this->derived().coeffs().coeffRef(1); }$/;"	f	class:QuaternionBase	access:public	signature:()
 y	third_party/Eigen/src/Geometry/Translation.h	/^  inline Scalar y() const { return m_coeffs.y(); }$/;"	f	class:Translation	access:public	signature:() const
 y	third_party/Eigen/src/Geometry/Translation.h	/^  inline Scalar& y() { return m_coeffs.y(); }$/;"	f	class:Translation	access:public	signature:()
-y1	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
-y2	libMatch/match.h	/^    float x1, y1, x2, y2, integral1, integral2;$/;"	m	struct:Match	access:public
+y1	libMatch/match.h	/^	float x1,y1,x2,y2;$/;"	m	struct:MatchWithHessian	access:public
+y1	libMatch/match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+y2	libMatch/match.h	/^	float x1,y1,x2,y2;$/;"	m	struct:MatchWithHessian	access:public
+y2	libMatch/match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
 yuv2rgb	third_party/library.h	/^void yuv2rgb(float *r,float *g,float *b,float *y,float *u,float *v,float yR, float yG, float yB, int width,int height)  $/;"	f	signature:(float *r,float *g,float *b,float *y,float *u,float *v,float yR, float yG, float yB, int width,int height)
 yuv2rgb	third_party/library.h	/^void yuv2rgb(float *r,float *g,float *b,float *y,float *u,float *v,int width,int height)  $/;"	f	signature:(float *r,float *g,float *b,float *y,float *u,float *v,int width,int height)
 z	third_party/Eigen/src/Core/DenseCoeffsBase.h	/^    z() const { return (*this)[2]; }$/;"	f	class:DenseCoeffsBase	access:public	signature:() const

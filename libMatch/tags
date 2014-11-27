@@ -1,0 +1,19 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+MATCH_H	match.h	6;"	d
+Match	match.h	/^struct Match {$/;"	s
+Match::x1	match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+Match::x2	match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+Match::y1	match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+Match::y2	match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+loadMatch	match.cpp	/^bool loadMatch(const char* nameFile, std::vector<Match>& match) {$/;"	f	signature:(const char* nameFile, std::vector<Match>& match)
+saveMatch	match.cpp	/^bool saveMatch(const char* nameFile, const std::vector<Match>& match) {$/;"	f	signature:(const char* nameFile, const std::vector<Match>& match)
+saveMatchWithHessian	match.cpp	/^bool saveMatchWithHessian(const char* nameFile, const std::vector<Match>& match) {$/;"	f	signature:(const char* nameFile, const std::vector<Match>& match)
+x1	match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+x2	match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+y1	match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public
+y2	match.h	/^    float x1, y1, x2, y2;$/;"	m	struct:Match	access:public

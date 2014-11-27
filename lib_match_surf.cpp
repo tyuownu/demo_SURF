@@ -11,7 +11,7 @@
 
 
 
-std::vector<Match> matchDescriptor(listDescriptor * l1, listDescriptor * l2)
+std::vector<Match> matchDescriptor(listDescriptor * l1, listDescriptor * l2, std::vector<MatchWithHessian>* matcheswithhessian)
 {
     // The match uses a ratio between a selected descriptor of l1 and the two closest descriptors
     // of l2.
@@ -51,12 +51,20 @@ std::vector<Match> matchDescriptor(listDescriptor * l1, listDescriptor * l2)
             match.y1=((*l1)[i]->kP)->y;
 			match.x2=((*l2)[position]->kP)->x;
 			match.y2=((*l2)[position]->kP)->y;
-			match.integral1=((*l1)[i]->kP)->integral_ty;
-			match.integral2=((*l2)[position]->kP)->integral_ty;
 			matches.push_back(match);
-		}
 
+
+			MatchWithHessian matchH;
+			matchH.x1=((*l1)[i]->kP)->x;
+            matchH.y1=((*l1)[i]->kP)->y;
+			matchH.x2=((*l2)[position]->kP)->x;
+			matchH.y2=((*l2)[position]->kP)->y;
+			matchH.hessian1=((*l1)[i]->kP)->integral_ty;
+			matchH.hessian2=((*l2)[position]->kP)->integral_ty;
+			matcheswithhessian->push_back(matchH);
+		}
 	}
+	std::cout<<"matches size = "<<matches.size()<<std::endl;
 	return matches;
 }
 

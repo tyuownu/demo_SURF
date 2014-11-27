@@ -88,7 +88,7 @@ listDescriptor* getKeyPoints(image *img,listKeyPoints* lKP,float threshold)
                     Dxy/=nxy;
                     
                     // Computation of the Hessian and Laplacian
-                    (*hessian[intervalCounter])(x,y)= -(Dxx*Dyy-0.81*(Dxy*Dxy));
+                    (*hessian[intervalCounter])(x,y)= (Dxx*Dyy-0.81*(Dxy*Dxy));
                     (*signLaplacian[intervalCounter])(x,y)=Dxx+Dyy>0;
 				}
 			}
