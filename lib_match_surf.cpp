@@ -7,6 +7,8 @@
  */
 
 #include "lib_match_surf.h"
+#include "time.h"
+#include "sys/time.h"
 
 
 
@@ -17,35 +19,98 @@ std::vector<Match> matchDescriptor(listDescriptor * l1, listDescriptor * l2, std
     // of l2.
     float thrm=RATE*RATE;
 	// RATE = 0.6
-    
+	std::cout<<"error why?????"<<std::endl;
+	clock_t t_start, t_end;    
     std::vector<Match> matches;
+
+//	t_start = clock();
+	long long L1,L2,L3;
+	timeval tv1;
+	gettimeofday(&tv1,NULL);
+	L1 = tv1.tv_sec*1000*1000+tv1.tv_usec;
     
     // Matching is not symmetric.
+	std::ofstream f("/home/tyu/match1.txt",std::ios::trunc);
+	if( !f )
+	{
+		std::cerr<<" Error: Can't open match.txt"<<std::endl;
+		exit(1);
+	}
+	f<<"x1  x2  y1  y2  sign1  sign2  Hess1  Hess2  d1  d2  dis\n";
     for(int i=0;i<l1->size();i++)
     {
         int position=-1;
         float d1=3;
         float d2=3;
+		int flag=1;
         
         for(int j=0;j<l2->size();j++)
         {
-			float d=euclideanDistance((*l1)[i],(*l2)[j]);
-			// We select the two closes descriptors
-			if((((*l1)[i])->kP)->signLaplacian==(((*l2)[j])->kP)->signLaplacian)
+			if ( (((*l1)[i])->kP)->integral_ty/2 <= (((*l2)[j])->kP)->integral_ty &&
+					(((*l1)[i])->kP)->integral_ty*2 >= (((*l2)[j])->kP)->integral_ty)
 			{
-				d2=((d2>d)?d:d2);
-				if( d1>d)
+				if((((*l1)[i])->kP)->signLaplacian==(((*l2)[j])->kP)->signLaplacian)
 				{
-					position=j;
-					d2=d1;
-					d1=d;
+					float d=euclideanDistance((*l1)[i],(*l2)[j]);
+					// We select the two closes descriptors
+/*					d2=((d2>d)?d:d2);
+					if( d1>d)
+					{
+						position=j;
+						d2=d1;
+						d1=d;
+					}*/
+					if(flag == 1)
+					{
+						position = j;
+						d1 = d;
+						d2 = d;
+						flag++;
+					}
+					else if(flag == 2)
+					{
+						if(d < d1)
+						{
+							d1 = d;
+							position = j;
+						}
+						else if(d >= d1)
+							d2 = d;
+						flag++;
+					}
+					else
+					{
+						if(d < d1)
+						{
+							d2 = d1;
+							d1 = d;
+							position = j;
+						}
+						else if(d <= d2 && d > d1)
+							d2 = d;
+					}
+					/*
+					 *if((((*l1)[i])->kP)->x == 237.8)
+					 *    std::cout<<"d = "<<d<<" d1 = "<<d1<<" d2 = "<<d2<<std::endl;
+					 */
 				}
 			}
 		}
+//		std::cout<<d1<<"---------"<<d2<<"----00000--------"<<position<<std::endl;
+			
+
+
+
 		
 		// Try to match it
 		if(position>=0  && thrm*d2>d1)
 		{
+		f<< (((*l1)[i])->kP)->x <<" "<< (((*l2)[position])->kP)->x <<" "
+			<<(((*l1)[i])->kP)->y<<" "<<(((*l2)[position])->kP)->y<<" "
+			<<(((*l1)[i])->kP)->signLaplacian<<" "<<(((*l2)[position])->kP)->signLaplacian<<" "
+			<<(((*l1)[i])->kP)->integral_ty<<" "<<(((*l2)[position])->kP)->integral_ty<<" "
+			<<d1<<" "<<d2<<" "
+			<<euclideanDistance((*l1)[i],(*l2)[position])<<"\n";
             Match match;
 			match.x1=((*l1)[i]->kP)->x;
             match.y1=((*l1)[i]->kP)->y;
@@ -54,16 +119,24 @@ std::vector<Match> matchDescriptor(listDescriptor * l1, listDescriptor * l2, std
 			matches.push_back(match);
 
 
-			MatchWithHessian matchH;
-			matchH.x1=((*l1)[i]->kP)->x;
-            matchH.y1=((*l1)[i]->kP)->y;
-			matchH.x2=((*l2)[position]->kP)->x;
-			matchH.y2=((*l2)[position]->kP)->y;
-			matchH.hessian1=((*l1)[i]->kP)->integral_ty;
-			matchH.hessian2=((*l2)[position]->kP)->integral_ty;
-			matcheswithhessian->push_back(matchH);
+			/*
+			 *MatchWithHessian matchH;
+			 *matchH.x1=((*l1)[i]->kP)->x;
+             *matchH.y1=((*l1)[i]->kP)->y;
+			 *matchH.x2=((*l2)[position]->kP)->x;
+			 *matchH.y2=((*l2)[position]->kP)->y;
+			 *matchH.hessian1=((*l1)[i]->kP)->integral_ty;
+			 *matchH.hessian2=((*l2)[position]->kP)->integral_ty;
+			 *matcheswithhessian->push_back(matchH);
+			 */
 		}
 	}
+	f.close();
+//	t_end = clock();
+	gettimeofday(&tv1,NULL);
+	L2 = tv1.tv_sec*1000*1000 + tv1.tv_usec;
+	std::cout<<"L2 - L1= "<<L2 - L1<<std::endl;
+//	std::cout<<"total time is: "<<((double)(t_end-t_start)/CLOCKS_PER_SEC)<<std::endl;
 	std::cout<<"matches size = "<<matches.size()<<std::endl;
 	return matches;
 }

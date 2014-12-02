@@ -112,7 +112,7 @@ int main(int argc, char** argv)
 	
     // Draw matches
 	for(int i=0;i<match_coor.size();i++)
-        line(img_descriptor_line,match_coor[i].x1,match_coor[i].y1,match_coor[i].x2,match_coor[i].y2+img1->getHeight(),140);
+		line(img_descriptor_line,match_coor[i].x1,match_coor[i].y1,match_coor[i].x2,match_coor[i].y2+img1->getHeight(),140);
 
 	
     cout<<"Image 1: "<<listDesc1->size()<<" keypoints."<<endl;

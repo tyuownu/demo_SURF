@@ -42,7 +42,7 @@ bool saveMatchWithHessian(const char* nameFile, const std::vector<MatchWithHessi
         for(; it != match.end(); ++it)
 		{
 			f << it->x1 << " " << it->y1 << " "
-				<< it->x2 << " " << it->y2 
+				<< it->x2 << " " << it->y2 << " "
 				<< it->hessian1 <<" "<<it->hessian2<< std::endl;
 		}
     }

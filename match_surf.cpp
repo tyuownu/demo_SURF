@@ -43,6 +43,7 @@ int main(int argc, char** argv)
     std::vector<Match> match_coor=matchDescriptor(listDesc1,listDesc2,p);
 	std::cout<<"match RAW: "<<match_coor.size()<<std::endl;
 	saveMatchWithHessian(outputmatch.c_str(),match_with_hessian);
+	saveMatch("/home/tyu/demo_SURF/keypoint/origin.txt",match_coor);
     // Cleaning identical matches
     cleanMatch(&match_coor);
 	std::cout<<"match RAW2: "<<match_coor.size()<<std::endl;
@@ -53,7 +54,7 @@ int main(int argc, char** argv)
 	std::cout<<"match RAW3: "<<match_coor.size()<<std::endl;
     
     // Save matches
-    //saveMatch(outputmatch.c_str(), match_coor);
+    saveMatch(outputmatch.c_str(), match_coor);
     
     /*MemCheck*/
 	for(int i=0;i<listDesc1->size();i++)
